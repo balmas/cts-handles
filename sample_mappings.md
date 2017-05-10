@@ -1,5 +1,5 @@
 
-1. map all works under a single namespace to a single endpoint, retrieving: 
+__1. map all works under a single namespace to a single endpoint, retrieving: __
    
     a. text if it's a passage
     
@@ -21,7 +21,7 @@ Sample URNs
 
   c. [urn:cts:greekLit:tlg0096](http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0096)
 
-2. map a specific textgroup to a single endpoint, retrieving: 
+__2. map a specific textgroup to a single endpoint, retrieving: __
 
     a. text if it's a passage
 
@@ -41,7 +41,7 @@ Sample URNs
 
   c. [urn:cts:greekLit:tlg0012](http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012)
 
-3. map a specific work to a single endpoint, retrieving: 
+__3. map a specific work to a single endpoint, retrieving: __
 
     a. text if it's a passage
     
@@ -62,7 +62,7 @@ Sample URNs
   c. [urn:cts:greekLit:tlg0012](http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012)
 
 
-4. map a specific edition to a single endpoint, retrieving: 
+__4. map a specific edition to a single endpoint, retrieving: __
     
     a.  text if it's a passage
     
@@ -79,7 +79,7 @@ Sample URNs
   b. [urn:cts:greekLit:tlg0012.tlg002.perseus-grc2](http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2)
 
 
-5. map a specific passage in a specific edition to a single endpoint retrieving passage
+__5. map a specific passage in a specific edition to a single endpoint retrieving passage__
 
 ```
 /^(urn:cts:greekLit:tlg0012\.tlg001\.perseus-grc2:1((\.?[^-]+)?(-1\.?[^-]+)?))$/   http://perseusiliadbook1.sample.repository.org/cts/api?request=GetPassage&urn=$1

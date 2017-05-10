@@ -17,7 +17,7 @@ Sample URNs
 
   a. [urn:cts:greekLit:tlg0085.tlg002.perseus-grc2:1-20](http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0085.tlg002.perseus-grc2:1-20)
 
-  b. [urn:cts:greekLit:tlg0012.tlg001.perseus-eng2](http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg001.perseus-eng2)
+  b. [urn:cts:greekLit:tlg0012.tlg001.perseus-eng4](http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg001.perseus-eng4)
 
   c. [urn:cts:greekLit:tlg0096](http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0096)
 
@@ -37,7 +37,7 @@ Sample URNs
 
   a. [urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1](http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1)
 
-  b. [urn:cts:greekLit:tlg0012.tlg001.perseus-eng2](http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg001.perseus-eng2)
+  b. [urn:cts:greekLit:tlg0012.tlg001.perseus-eng4](http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg001.perseus-eng4)
 
   c. [urn:cts:greekLit:tlg0012](http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012)
 

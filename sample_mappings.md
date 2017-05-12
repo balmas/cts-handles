@@ -82,8 +82,8 @@ Sample URNs
 ## 5. map a specific passage in a specific edition to a single endpoint retrieving passage
 
 ```
-/^(urn:cts:greekLit:tlg0012\.tlg002\.perseus-grc2:1((\.?[^-]+)?(-1\.?[^-]+)?))$/   http://perseusiliadbook1.sample.repository.org/cts/api?request=GetPassage&urn=$1
+/^(urn:cts:greekLit:tlg0012\.tlg002\.perseus-grc2:2((\.?[^-]+)?(-1\.?[^-]+)?))$/   http://perseusiliadbook1.sample.repository.org/cts/api?request=GetPassage&urn=$1
 ```
 
-[urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1](http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1)
+[urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:2.1](http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:2.1)
 

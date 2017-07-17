@@ -18,7 +18,9 @@
 * CTS service providers wishing to have their texts be available via the managed Handle service tell the central organization responsible for their namespace prefix which works and which work/editions for which they are going to
 provide services and the details of calling those services. 
 
-* The central organization creates template handles for every work and work/edition within a prefix that is registered with it by the service providers. 
+* The central organization creates template handles for every work and edition within a prefix that is registered with it by the service providers. 
+    * template handles at the level of the edition are necessary to support multiple publishers providing editions of the same work
+    * QUESTION for Robert/Larry: does the handle service provide a way for user selection if multiple handles match? i.e. if a request for a work comes in and multiple providers offer versions of that work?
 
 * The central organization can either give the relevant publishing organization edit permissions on the relevant template handle(s) (assuming they want it, which means they want to understand how it works and maintain it over time). or serve as general purpose handle admin and the CTS service providers would have to keep them informed of changes.
     * changes would include things such as the location of the API endpoint providing access to the edition or redirection of an previously published text to a different edition.

@@ -53,26 +53,40 @@ The following proposes an approach to using the using the Handle System as a cen
 
 # Recommended Approach
 
-* One or more central organizations are responsible for registriging a Handle Prefixes at the level of the CTS Namespace. 
+## Roles
 
-* The hdl.handle.net proxy is responsible for mapping CTS URNs to Handle Proxy urls. The hdl.handle.net proxy resolves potential handles in order to probe for the lowest level of granularity  It first looks to see if there is an individual handle for the specific CTS edition URN, and if so it uses that. Otherwise it maps it to the prefix registered for the namespace and lets the Handle Service responsible for that prefix take over.
+* Centralized Handle System Provider (CHSP) - one or more organizations assuming responsiblity for registering and administering Handle prefixes for CTS Namespaces 
 
-* Individual publishers are free to registered their own Handles for specific CTS editions without participating in the central organizational management. In order to take advantage of the proxy system, these Handles must adhere to a standard syntax.
+* Participating CTS Text Publisher (PCTP) - a publisher of CTS URN identified texts who wants their text URNs to be globally resolved by the Handle System
 
-* Neither passages nor subreferences would rate separate template handles, although nothing would prevent this being done if the future if the system proves useful and sustainable.
+* hdl.handle.net provider (HDL) - the provider of the global hdl.handle.net proxy service 
 
-* CTS service providers wishing to have their texts be available via the managed Handle service tell the central organization responsible for their namespace prefix which works and which work/editions for which they are going to
-provide services and the details of calling those services. 
+* Non-Participating CTS Text Publisher (NPCTP) - a publisher of CTS URN identified texts who does not want to participate in the centralized solution but wants to publish a Handle for their text
 
-* The central organization creates template handles for every work and edition within a prefix that is registered with it by the service providers. 
-    * template handles at the level of the edition are necessary to support multiple publishers providing editions of the same work
-    * QUESTION for Robert/Larry: does the handle service provide a way for user selection if multiple handles match? i.e. if a request for a work comes in and multiple providers offer versions of that work?
+## Responsibilities
 
-* The central organization can either give the relevant publishing organization edit permissions on the relevant template handle(s) (assuming they want it, which means they want to understand how it works and maintain it over time). or serve as general purpose handle admin and the CTS service providers would have to keep them informed of changes.
-    * changes would include things such as the location of the API endpoint providing access to the edition or redirection of an previously published text to a different edition.
+* Centralized Handle System Provider (CHSP) 
+    * registers Handle Prefixes at the level of the CTS Namespace
+    * creates template handles for every CTS work and CTS version within a prefix that is registered with it by PCTPs
+        * template handles at the level of the edition are necessary to support multiple publishers providing editions of the same work)
+        * Neither passages nor subreferences would rate separate template handles, although nothing would prevent this being done if the future if the system proves useful and sustainable.
+        * See Appendix 3: Sample Mappings for details of what the template handle regexes might look like
+    * keeps HDL informed of all Handle prefix -> CTS Namespace mappings under its authority
+    * either gives the PCTPs direct edit permissions on the relevant template handle(s) or serves as general purpose handle admin and develops an out of band mechanism for the PCTPs to keep it informed of changes.
+    
+* The hdl.handle.net proxy provider
+   * Responsible for mapping CTS URNs to Handle Proxy urls. The hdl.handle.net proxy resolves potential handles in order to probe for the lowest level of granularity  It first looks to see if there is an individual handle for the specific CTS edition URN, and if so it uses that. Otherwise it maps it to the prefix registered for the namespace and lets the Handle Service responsible for that prefix take over.
 
+* Participating CTS Text Publisher( PCTP)
+    * informs the CHSP responsible for their namespace prefix of the list of CTS URNs for which they are going to provide services and the details of calling those services 
+        * this may be done through direct management of a template handles or through out of band mechanisms according to the preference of the Handle CHSP
+    * informs the CHSP of changes to their URN mappings
+        * changes would include things such as the location of the API endpoint providing access to the edition or redirection of an previously published text to a different edition.
 
-Fulfillment of Use Cases:
+* Non-Participating CTS Text Publisher (NPCTP)
+    * Are free to registered their own Handles for specific CTS editions without participating in the central organizational management. In order to take advantage of the proxy system, these Handles must adhere to a standard syntax.
+
+## Fulfillment of Use Cases:
 
 Use Case 1: Full URN with Edition and Passage
 
@@ -135,6 +149,11 @@ which resolves to the same template handle as in Use Case 3
 http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012.tlg002
 
 
+
+## Outstanding Questions
+* What if a template handle resolves to multiple possibilities? I.e. if there are multiple providers for a work level template handle?
+
+
 # Appendix 1 - User Stories
 
 US 1 As a user I want a CTS Work URN (with a passage reference) to resolve to a list of URLs serving editions and translations of this work. 
@@ -191,3 +210,11 @@ curl -H X-CTS-Request cts.handle.net/urn:cts:greekLit:tlg0012.tlg0012.perseus-gr
 curl -H X-CTS-Endpoints cts.handle.net/urn:cts:greekLit:tlg0012.tlg0012.perseus-grc2:1.1
 
 The Proxy Server could be responsible for translating CTS API URLs in the Handle Records to the requested format and CTS Text Publishers who didn’t supply a CTS Endpoint would just supply URLs to their content.
+
+# Appendix 3 - Sample Mappings 
+
+[sample_mappings.md](sample_mappings.md)
+
+# Appendix 4 - Sample CTS Requests/Responses
+
+[sample_cts_request_response.md](sample_cts_request_response.md)

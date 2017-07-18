@@ -86,70 +86,101 @@ The following proposes an approach to using the using the Handle System as a cen
 * Non-Participating CTS Text Publisher (NPCTP)
     * Are free to registered their own Handles for specific CTS editions without participating in the central organizational management. In order to take advantage of the proxy system, these Handles must adhere to a standard syntax.
 
-## Fulfillment of Use Cases:
+## Basic Use Cases
 
-Use Case 1: Full URN with Edition and Passage
+### Use Case 1: Full URN with Edition and Passage
 
-urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1
+1. Consumer requests urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1 from the hdl.handle.net proxy
 
-would get mapped to something like
+2. HDL looks for an edition specific handle, and finding none, maps it to the default handle for the greekLit namespace, inserting a delimiter at the point of the passage identifier.
 
-https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:2.1 (where the 20.500.20.20.20 prefix is specific to the URN namespace greeklit)
+    https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2|:2.1 (where the 20.500.20.20.20 prefix is specific to the URN namespace greeklit)
 
-which would resolve to a template handle at
+3. The CHSP resolves the request to a template handle at
 
-20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+    20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
 
-which would result in a redirect to a GetPassage request at the provider's CTS API endpoint:
+4. Template handle maps the request to the URL for the GetPassage request at the provider's CTS API endpoint:
 
-https://cts.perseids.org/api/cts?request-GetPassage&urn=urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1
+    https://cts.perseids.org/api/cts?request-GetPassage&urn=urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1
+    
+5. CHSP returns the URL to the HDL
 
-and would work for any possible sequence of passages. 
+6. HDL issues a redirect response to the consumer
+
+![Use Case 1 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc1.png?raw=true)
 
 Use Case 2: Full URN with Edition but no Passage
 
-urn:cts:greeklit:tlg0012.tlg002.perseus-grc2
+1. Consumer requests urn:cts:greeklit:tlg0012.tlg002.perseus-grc2 from HDL
 
-which is the edition only without the passage and would get mapped to
+2. HDL looks for an edition specific handle, and finding none, maps it to the default handle for the greekLit namespace, inserting a delimiter at the point of the (missing) passage identifier.
 
-https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2|
 
-which would resolve to the same template handle as in Use Case 1, which would contain the logic of ‘no final passage component then...’ and so result in the redirect to a GetValidReff request at the provider's CTS API endpoint:
+3. The CHSP resolves the request to a template handle at
 
-http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+    20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+
+4. Template handle contains the logic of ‘no final passage component then...’ and so result in the redirect to a GetValidReff request at the provider's CTS API endpoint:
+
+    http://cts.perseids.org/api/cts?request=GetValidReff&urn=urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+
+5. CHSP returns the URL to the HDL
+
+6. HDL issues a redirect response to the consumer
+
+![Use Case 2 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc2.png?raw=true)
 
 Use Case 3: Work level URN with passage
 
-urn:cts:greekLit:tlg0012.tlg002:1.1
+1. Consumer requests urn:cts:greekLit:tlg0012.tlg002:1.1 from HDL
 
-This maps to a different template handle, first being mapped to
+2. HDL looks for an edition specific handle, and finding none, maps it to the default handle for the greekLit namespace, inserting a delimiter at the point of the passage identifier.
 
-https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002:1.1
+https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|1.1
 
-which resolves to the template handle
+3. The CHSP resolves the request to a different template handle at
 
-20.500.20.20.20/tlg0012.tlg002
+    20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002
 
-which redirects to a GetPassage request:
+4. Template handle identifies the url for the GetPassage request:
 
-http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0012.tlg002:1.1
+    http://cts.perseids.org/api/cts?request=GetPassage&urn=urn:cts:greekLit:tlg0012.tlg002:1.1
+
+5. CHSP returns the URL to the HDL
+
+6. HDL issues a redirect response to the consumer
+
+![Use Case 3 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc3.png?raw=true)
 
 Use Case 4: Work level URN without passage
 
-urn:cts:greekLit:tlg0012.tlg002
+1. Consumer requests urn:cts:greekLit:tlg0012.tlg002 from HDL
 
-maps to
+2. HDL looks for an edition specific handle, and finding none, maps it to the default handle for the greekLit namespace, inserting a delimiter at the point of the (missing) passage identifier.
 
-https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002
+https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|
 
-which resolves to the same template handle as in Use Case 3
+3. The CHSP resolves the request to the template handle at
 
-20.500.20.20.20/tlg0012.tlg002 where the logic of ‘no passage...’ is applied and the resulting redirect is to a GetCapabilities request at the provider's endpoint:
+    20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002
 
-http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012.tlg002
+4. Template handle contains  the logic of ‘no passage...’ is applied and the resulting redirect is to a GetCapabilities request at the provider's endpoint:
 
+    http://cts.perseids.org/api/cts?request=GetCapabilities&urn=urn:cts:greekLit:tlg0012.tlg002
 
+5. CHSP returns the URL to the HDL
 
+6. HDL issues a redirect response to the consumer
+
+![Use Case 4 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc4.png?raw=true)
+
+## Advanced Use Cases
+
+* providing different responses according to type of data requested
+* supporting multiple providers of the same URN
+* passage specific template handles
 ## Outstanding Questions
 * What if a template handle resolves to multiple possibilities? I.e. if there are multiple providers for a work level template handle?
 

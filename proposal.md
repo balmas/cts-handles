@@ -75,7 +75,8 @@ The following proposes an approach to using the using the Handle System as a cen
     * either gives the PCTPs direct edit permissions on the relevant template handle(s) or serves as general purpose handle admin and develops an out of band mechanism for the PCTPs to keep it informed of changes.
     
 * The hdl.handle.net proxy provider
-   * Responsible for mapping CTS URNs to Handle Proxy urls. The hdl.handle.net proxy resolves potential handles in order to probe for the lowest level of granularity  It first looks to see if there is an individual handle for the specific CTS edition URN, and if so it uses that. Otherwise it maps it to the prefix registered for the namespace and lets the Handle Service responsible for that prefix take over.
+   * Responsible for mapping CTS URNs to Handle Proxy urls. 
+       * The hdl.handle.net proxy resolves potential handles in order to probe for the lowest level of granularity.  It first looks to see if there is an individual handle for the specific CTS edition URN, and if so it uses that. Otherwise it maps it to the prefix registered for the namespace and lets the Handle Service responsible for that prefix take over.
 
 * Participating CTS Text Publisher( PCTP)
     * informs the CHSP responsible for their namespace prefix of the list of CTS URNs for which they are going to provide services and the details of calling those services 

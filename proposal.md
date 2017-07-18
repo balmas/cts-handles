@@ -110,7 +110,7 @@ The following proposes an approach to using the using the Handle System as a cen
 
 ![Use Case 1 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc1.png?raw=true)
 
-Use Case 2: Full URN with Edition but no Passage
+### Use Case 2: Full URN with Edition but no Passage
 
 1. Consumer requests urn:cts:greeklit:tlg0012.tlg002.perseus-grc2 from HDL
 
@@ -132,7 +132,7 @@ https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002.perseus-g
 
 ![Use Case 2 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc2.png?raw=true)
 
-Use Case 3: Work level URN with passage
+### Use Case 3: Work level URN with passage
 
 1. Consumer requests urn:cts:greekLit:tlg0012.tlg002:1.1 from HDL
 
@@ -154,7 +154,7 @@ https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|1.1
 
 ![Use Case 3 Sequence](https://github.com/rpidproject/cts-handles/blob/master/ctsuc3.png?raw=true)
 
-Use Case 4: Work level URN without passage
+### Use Case 4: Work level URN without passage
 
 1. Consumer requests urn:cts:greekLit:tlg0012.tlg002 from HDL
 
@@ -179,11 +179,16 @@ https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|
 ## Advanced Use Cases
 
 * providing different responses according to type of data requested
-* supporting multiple providers of the same URN
-* passage specific template handles
-## Outstanding Questions
-* What if a template handle resolves to multiple possibilities? I.e. if there are multiple providers for a work level template handle?
 
+* supporting multiple providers of the same URN
+
+* passage specific template handles
+
+## Outstanding Questions
+
+* What if a template handle resolves to multiple possibilities? I.e. if there are multiple providers for a work level template handle? How are these reported back to the proxy and to the consumer?
+
+* How does the hdl proxy resolve URNs which have edition specific handles (i.e. which aren't participating in the namespace prefix mapping)? assume it would only work if those handles adhered to a predefined syntax?
 
 # Appendix 1 - User Stories
 

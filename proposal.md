@@ -181,11 +181,21 @@ https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|
 
 ## Advanced Use Cases
 
-* providing different responses according to type of data requested
+### Use Case 5: Multiple providers of the same URN
 
-* supporting multiple providers of the same URN
+In the event multiple PCTP offer access to the same work or edition of a text, the CHSP can return a URL to a landing page from which the consumer can choose which link to follow.  The level of information desired for such a landing page will dictate the complexity of the implementation. In the simple end of the spectrum, the CHSP could keep a small amount of metadata about each PCTP and display that along with the links. A more complex solution might involve the CHSP retrieving metadata dynamically from the PCTP endpoints.
 
-* passage specific template handles
+### Use Case 6: Passage specific template handles
+
+A PCTP may publish incomplete editions of a work, in which only a subset of passages are available, or to offer a less granular citation hierarchy for a work (e.g offering passage retrieval at the level of a verse but not a line). 
+
+The above solution, which assumes the most granualar template handle to be for a specific CTS version, would not take into account the passages a given endpoint has available for a requested work or edition before returning a URL, so it's possible the consumer would get redirected to an endpoint which does not have the requested passage. 
+
+It is technically possible to register template handles which are more granualar than a CTS version, but the overhead of keeping these handles up to date may or may not be worth the benefit. The most likely way of implementing such a solution might be to develop a service which issued a GetValidReff request to all registered CTS endpoints for all versions of a work, and then created and updated the template handles automatically with regexes which matched the passages offered by the endpoint.  
+
+### Use Case 7: Data Type specific request/response
+
+
 
 # Appendix 1 - User Stories
 

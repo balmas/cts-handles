@@ -1,4 +1,12 @@
 
+# Authors
+
+Bridget Almas
+Larry Lannom
+Robert Tupolo-Schneck
+
+[RPID Project](https://rpidproject.github.io/rpid/)
+
 # Overview
 
 The Canonical Text Services (CTS) Protocol defines a URN-based identifier structure for identifying texts and canonically cited passages of texts. It also defines a companion CTS Application Programming Interface (API) protocol for a service to retrieve fragments of texts by canonical reference, as expressed by their CTS URNs. The CTS URN syntax enables the expression of texts and passages of texts as first class, stably identified data objects. The CTS API allows the resolving of identifiers into the data that they represent.

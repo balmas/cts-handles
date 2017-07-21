@@ -1,9 +1,11 @@
 
 # Authors
 
-Bridget Almas
-Larry Lannom
-Robert Tupolo-Schneck
+Bridget Almas, Tufts University
+
+Larry Lannom, CNRI
+
+Robert Tupolo-Schneck, CNRI
 
 [RPID Project](https://rpidproject.github.io/rpid/)
 

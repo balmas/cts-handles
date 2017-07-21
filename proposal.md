@@ -73,10 +73,12 @@ The following proposes an approach to using the using the Handle System as a cen
         * See Appendix 3: Sample Mappings for details of what the template handle regexes might look like
     * keeps HDL informed of all Handle prefix -> CTS Namespace mappings under its authority
     * either gives the PCTPs direct edit permissions on the relevant template handle(s) or serves as general purpose handle admin and develops an out of band mechanism for the PCTPs to keep it informed of changes.
+    * provides a landing page for cases where a single URN resolves to multiple possible providers or service endpoints
     
 * The hdl.handle.net proxy provider
    * Responsible for mapping CTS URNs to Handle Proxy urls. 
        * The hdl.handle.net proxy resolves potential handles in order to probe for the lowest level of granularity.  It first looks to see if there is an individual handle for the specific CTS edition URN, and if so it uses that. Otherwise it maps it to the prefix registered for the namespace and lets the Handle Service responsible for that prefix take over.
+       * Supporting edition-specific handles from non-participating CTS Text Publishers requires support for a conventional handle syntax. This should be extensible but ideally limited to a few possible constructs.
 
 * Participating CTS Text Publisher( PCTP)
     * informs the CHSP responsible for their namespace prefix of the list of CTS URNs for which they are going to provide services and the details of calling those services 
@@ -185,12 +187,6 @@ https://hdl.handle.net/20.500.20.20.20/urn:cts:greekLit:tlg0012.tlg002|
 
 * passage specific template handles
 
-## Outstanding Questions
-
-* What if a template handle resolves to multiple possibilities? I.e. if there are multiple providers for a work level template handle? How are these reported back to the proxy and to the consumer?
-
-* How does the hdl proxy resolve URNs which have edition specific handles (i.e. which aren't participating in the namespace prefix mapping)? assume it would only work if those handles adhered to a predefined syntax?
-
 # Appendix 1 - User Stories
 
 US 1 As a user I want a CTS Work URN (with a passage reference) to resolve to a list of URLs serving editions and translations of this work. 
@@ -227,7 +223,7 @@ The owner of the Proxy Server is committing to make the service available. CTS P
   
 We could establish some Best Practices for registering Handles for CTS-Identified texts. (E.g. If a Text Provider wants to return a CTS URN, and replace it with a newer version, they should get a new Handle for the newer text and update the mappings they send to the CTS Proxy Provider to have them redirect to the newer Handle.) 
 
-## CTS Functionality with Namespace-specific Handle Governance
+## Scenario 2: CTS Functionality with Namespace-specific Handle Governance
 In this scenario the Proxy Server maps CTS URNs to CTS API Endpoints that offer the requested text. The Proxy Service can return any of the base CTS Endpoint URL or the specific API URLs to retrieve the text from the endpoint.  The reason to support both would allow for existing CTS API Client code to work as well as for non CTS-aware clients to just get whatever is provided from the API endpoint.  CTS-aware clients of the Proxy Service can use the CTS API Endpoints directly to make decisions about text to retrieve when multiple are available.
 
 The Proxy Service Mapping is done based upon CTS Namespace to Handle Prefix, delegating responsibility for mappings within a Namespace to the Handle Service provider.  CTS Namespace Owners run Handle Servers which manage the URNs under their namespace(s), registering a Handle Prefix per Namespace and using Handle Templates to map URNs automatically to the CTS API Endpoints that provide the texts.  Individual publishers of texts under a managed namespace can submit their endpoints to the Namespace provider and request Handles for their texts.  Namespace owners who want their texts available via the CTS Handle Proxy submit their prefixes to the Proxy Service Provider. 

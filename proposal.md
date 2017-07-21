@@ -195,7 +195,7 @@ It is technically possible to register template handles which are more granualar
 
 ### Use Case 7: Data Type specific request/response
 
-Some PCTP may use CTS URNs to identify their text, but not provide a CTS API Endpoint for those texts.  Or providers may offer extensions to the CTS API which support retrieval of the text in a variety of formats (XML, plain text, JSON, etc.). There would be various ways to enable consumers to explicitly request their desired response type.  Most solutions would impose requirements on all participants in the solution. One way to implement this would be to use a combination of standard and custom HTTP headers. The HDL proxy would need to pass these headers on to the CHSP and then the template handles would need to be configured to take the appropriate path depending upon the match between a header in the request and the details of the available endpoint(s).
+Some PCTP may use CTS URNs to identify their text, but not provide a CTS API Endpoint for those texts.  Or providers may offer extensions to the CTS API which support retrieval of the text in a variety of formats (XML, plain text, JSON, etc.). There would be various ways to enable consumers to explicitly request their desired response type.  Most solutions would impose requirements on all participants in the solution. One way to implement this would be to use the standard HTTP Accept header. The HDL proxy would need to pass this header on to the CHSP and then the template handles would need to be configured to take the appropriate path depending upon the match between a header in the request and the details of the available endpoint(s).
 
 For example, the HTTP Accept header could be used to request a specific text mimetype:
 
@@ -206,10 +206,10 @@ curl -H Accept: text/plain cts.handle.net/urn:cts:greekLit:tlg0012.tlg0012.perse
 
 In this case the PCTP would have to provide different urls per content mimetype and the CHSP would have to configure the template handles to make of the HTTP Header in its logic.
 
-Custom HTTP headers could be used to enable a consumer to specify whether they only wanted to be directed to CTS API endpoints.  For example:
+Custom HTTP header values could be used to enable a consumer to specify whether they only wanted to be directed to CTS API endpoints.  For example:
 
 ```
-curl -H X-CTS-Request cts.handle.net/urn:cts:greekLit:tlg0012.tlg0012.perseus-grc2:1.1
+curl -H Accept: application/vnd.cite-architecture.cts+xml cts.handle.net/urn:cts:greekLit:tlg0012.tlg0012.perseus-grc2:1.1
 ```
 
 In this case the CHSP might configure the template handle logic to examine the urls of the PCTP endpoints and exclude any that didn't adhere to the CTS API protocol.

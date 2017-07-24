@@ -201,7 +201,7 @@ A PCTP may publish incomplete editions of a work, in which only a subset of pass
 
 The above solution, which assumes the most granualar template handle to be for a specific CTS version, would not take into account the passages a given endpoint has available for a requested work or edition before returning a URL, so it's possible the consumer would get redirected to an endpoint which does not have the requested passage. 
 
-It is technically possible to register template handles which are more granualar than a CTS version, but the overhead of keeping these handles up to date may or may not be worth the benefit. The most likely way of implementing such a solution might be to develop a service which issued a GetValidReff request to all registered CTS endpoints for all versions of a work, and then created and updated the template handles automatically with regexes which matched the passages offered by the endpoint.  
+It is technically possible to register template handles which are more granular than a CTS version, but the overhead of keeping these handles up to date may or may not be worth the benefit. The most likely way of implementing such a solution might be to develop a service which issued a GetValidReff request to all registered CTS endpoints for all versions of a work, and then created and updated the template handles automatically with regexes which matched the passages offered by the endpoint.  
 
 ### Use Case 7: Data Type specific request/response
 

@@ -297,5 +297,9 @@ Th solution could be implemented at a variety of stages of Perseus' [CapiTainS-b
 
 ## Option A: Register Handles at Text Deployment
 
-Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by a script which pulls release bundles from GitHub and
+Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by [a script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles from GitHub and publishes them to the CTS API endpoint.  This script runs via a cron job and could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
+
+### Prerequisites
+
+* CHSP provides an automated means to for PCTPs to create and update handles. This could make use of the Handle Service HTTP API.
 

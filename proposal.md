@@ -293,13 +293,16 @@ The Proxy Server could be responsible for translating CTS API URLs in the Handle
 
 Perseus would act in the role of a Participating CTS Text Publisher (PCTP).  
 
-Th solution could be implemented at a variety of stages of Perseus' [CapiTainS-based](http://capitains.org/) text publishing process.
+It should be possible to integrate the management of Handle records for Perseus' CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process.
 
-## Option A: Register Handles at Text Deployment
+An automated process could issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. (This assumes that the CHSP provides an automated means to for PCTPs to create and update handles. This could make use of the Handle Service HTTP API or include a customized solution.)
 
-Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by [a script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles from GitHub and publishes them to the CTS API endpoint.  This script runs via a cron job and could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
+Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by [a script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles (built by the [HookTest Continuous Integration system](https://github.com/capitains/hook)) from GitHub and publishes them to the CTS API endpoint.  This script runs via a cron job and could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
 
-### Prerequisites
+However, registering new handles from the CapiTainS release bundles does not provide the ability to redirect previously published URNs which have been replaced by newer versions.  The process by which new URNs are assigned at Perseus uses a [Cite Collections Application](https://github.com/PerseusDL/cite_collections_rails) through which URNs are created. If a new URN is created with the intention for it to replace an earlier published URN, this is identified through a property in the Cite Collection record for the URN.  
 
-* CHSP provides an automated means to for PCTPs to create and update handles. This could make use of the Handle Service HTTP API.
+The overall process to update the Handle records might look something like this:
+
+![Perseus CTS Handle Create/Update Process](https://github.com/rpidproject/cts-handles/blob/master/perseusctshandles.png)
+
 

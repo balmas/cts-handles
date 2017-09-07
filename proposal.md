@@ -288,3 +288,14 @@ The Proxy Server could be responsible for translating CTS API URLs in the Handle
 # Appendix 4 - Sample CTS Requests/Responses
 
 [sample_cts_request_response.md](sample_cts_request_response.md)
+
+# Appendix 5 - Proposed Perseus Implementation
+
+Perseus would act in the role of a Participating CTS Text Publisher (PCTP).  
+
+Th solution could be implemented at a variety of stages of Perseus' [CapiTainS-based](http://capitains.org/) text publishing process.
+
+## Option A: Register Handles at Text Deployment
+
+Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by a script which pulls release bundles from GitHub and
+

@@ -291,18 +291,37 @@ The Proxy Server could be responsible for translating CTS API URLs in the Handle
 
 # Appendix 5 - Proposed Perseus Implementation
 
-Perseus would act in the role of a Participating CTS Text Publisher (PCTP).  
+It should be possible to integrate the management of Handle records for Perseus' CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process. Perseus would act in the role of a Participating CTS Text Publisher (PCTP). 
 
-It should be possible to integrate the management of Handle records for Perseus' CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process.
+Assuming that the CHSP provides an automated means to for PCTPs to create and update handles (either via the Handle Service HTTP API or a customized solution), Perseus could add steps to its text deployment and urn assignment processes to issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. 
 
-An automated process could issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. (This assumes that the CHSP provides an automated means to for PCTPs to create and update handles. This could make use of the Handle Service HTTP API or include a customized solution.)
-
-Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by [a script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles (built by the [HookTest Continuous Integration system](https://github.com/capitains/hook)) from GitHub and publishes them to the CTS API endpoint.  This script runs via a cron job and could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
+Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?).  The deployment process is managed by [a cron-invoked script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles (built by the [HookTest Continuous Integration system](https://github.com/capitains/hook)) from GitHub and publishes them to the CTS API endpoint.  This script could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
 
 However, registering new handles from the CapiTainS release bundles does not provide the ability to redirect previously published URNs which have been replaced by newer versions.  The process by which new URNs are assigned at Perseus uses a [Cite Collections Application](https://github.com/PerseusDL/cite_collections_rails) through which URNs are created. If a new URN is created with the intention for it to replace an earlier published URN, this is identified through a property in the Cite Collection record for the URN.  
 
 The overall process to update the Handle records might look something like this:
 
 ![Perseus CTS Handle Create/Update Process](https://github.com/rpidproject/cts-handles/blob/master/perseusctshandles.png)
+
+In this scenario the Perseus Handle Script would be invoked from the automated process which deployes new CTS-identified texts from GitHub releases.
+
+__Step 1__: Get the list of work and version level URNs included in the release
+
+__Step 2__: Get the list of all handles for each CTS namespace in that list  (by specifying the prefix defined for that namespace, which would be communicated out of band between the CHSP and Perseus)
+
+_Step 3 is repeated for each URN in the release:_
+
+__Step 3__: Check to see if a handle exists for the URN. If so, proceed stop here and iterate to next URN.
+
+ _Steps 4 - 7 are repeated for each URN in the release for which there is NOT already an existing Handle:_
+ 
+__Step 4__: Retrieve the CITE record for the URN from the Perseus Catalog Cite Collection API
+
+__Step 5__: Check to see if the URN is a replacement for an earlier version and that version also has a Handle. If so, proceed to Step 6. If not skip to Step 7.
+
+__Step 6__: Update the HS_NAMESPACE value for Handle for the source URN (i.e. the URN which is being replaced) to redirect to the newer URN
+
+__Step 7__: Create a new Handle for the new URN with the appropriate template in the HS_NAMESPACE record.
+
 
 

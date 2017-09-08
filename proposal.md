@@ -291,7 +291,7 @@ The Proxy Server could be responsible for translating CTS API URLs in the Handle
 
 # Appendix 5 - Proposed Perseus Implementation
 
-It should be possible to integrate the management of Handle records for Perseus' CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process. Perseus would act in the role of a Participating CTS Text Publisher (PCTP). 
+It should be possible to integrate the management of Handle records for the [Perseus Digital Library's](http://www.perseus.tufts.edu) CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process. Perseus would act in the role of a Participating CTS Text Publisher (PCTP). 
 
 Assuming that the CHSP provides an automated means to for PCTPs to create and update handles (either via the Handle Service HTTP API or a customized solution), Perseus could add steps to its text deployment and urn assignment processes to issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. 
 

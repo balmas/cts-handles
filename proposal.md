@@ -303,7 +303,7 @@ The overall process to update the Handle records might look something like this:
 
 ![Perseus CTS Handle Create/Update Process](https://github.com/rpidproject/cts-handles/blob/master/perseusctshandles.png)
 
-In this scenario the Perseus Handle Script would be invoked from the automated process which deployes new CTS-identified texts from GitHub releases.
+In this scenario the Perseus Handle Script would be invoked from the automated process which deploys new CTS-identified texts from GitHub releases.
 
 __Step 1__: Get the list of work and version level URNs included in the release
 

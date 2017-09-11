@@ -297,7 +297,9 @@ Assuming that the CHSP provides an automated means to for PCTPs to create and up
 
 Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?request=GetCapabilities).  The deployment process is managed by [a cron-invoked script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles (built by the [HookTest Continuous Integration system](https://github.com/capitains/hook)) from GitHub and publishes them to the CTS API endpoint.  This script could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
 
-In addition to registering new handles from the CapiTainS release bundles, the process would also need to provide the ability to redirect previously published URNs which have been replaced by newer versions.  The process by which new URNs are assigned at Perseus uses the [Cite Collections API](https://github.com/PerseusDL/cite_collections_rails) of the [Perseus Catalog](http://catalog.perseus.org). (The API is deployed at http://catalog.perseus.org/cite-collections/api/.) If a new URN is created with the intention for it to replace an earlier published URN, this is identified through a `source_urn` property in the Cite Collection record for the URN.  
+In addition to registering new handles from the CapiTainS release bundles, the process would also need to provide the ability to redirect previously published URNs which have been replaced by newer versions.  The process by which new URNs are assigned at Perseus uses the [Cite Collections API](https://github.com/PerseusDL/cite_collections_rails) of the [Perseus Catalog](http://catalog.perseus.org). (The API is deployed at http://catalog.perseus.org/cite-collections/api/.) The following scenarios are possible:
+    * If a new URN is created with the intention for it to replace an earlier published URN, this is identified through a `source_urn` property in the Cite Collection record for the URN.  
+    * A text might be retired or be republished under a corrected URN.  In this case, the `redirect_to` property of the Cite Collection record will be updated to reference the replacement URN.
 
 The overall process to update the Handle records might look something like this:
 
@@ -323,5 +325,5 @@ __Step 6__: Update the HS_NAMESPACE value for Handle for the source URN (i.e. th
 
 __Step 7__: Create a new Handle for the new URN with the appropriate template in the HS_NAMESPACE record.
 
-
+An additional process would likely need to be instituted to capture URN replacements and redirections which occur via use of the `redirect_to` property of the URN Cite Record. This would probably be simplest to implement as a separate process which runs at regular intervals, iterating through registered Handle records and checking them against the Cite Collection records for the URN, updating the Handle template as need for any URNs which have been since redirected.
 

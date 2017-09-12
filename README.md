@@ -14,17 +14,11 @@ information necessary to locate, access, and otherwise make use of the resources
 should allow us to connect the precise CTS URN referencing capability with the flexible resolution capabilities 
 and existing infrastructure of the widely-used Handle System.
 
-We will devise solution using the Handle System as a centralized authority, registering a prefix for CTS URNs and 
-leveraging the templating mechanism of the Handle system to map CTS URN namespaces to the addresses of their CTS API
-endpoint(s), thereby enabling URNs to be resolved to the specific texts and text passages they identify by client 
+We have [proposed a solution](proposal.md) using the Handle System as a centralized authority, registering a prefix 
+for CTS URNs and leveraging the templating mechanism of the Handle system to map CTS URN namespaces to the addresses of their CTS API endpoint(s), thereby enabling URNs to be resolved to the specific texts and text passages they identify by client 
 services with no specific knowledge of either the CTS API protocol or the individual publishers of each text. 
 The Handles themselves will resolve to the CTS API endpoints, ensuring that their use returns the actual textual 
 data thus identified. 
 
-Implementation Plan
-* Register handle prefix
-* Develop and test templates
-* Determine approach to registration of CTS API Endpoints
-* Do we need an interface?
-* Can/should we use automated tests to verify compliance of the endpoints?
-* Do we need some sort of SLA assurance for API providers in order to add their endpoints?
+
+

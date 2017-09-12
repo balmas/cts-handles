@@ -15,9 +15,9 @@ The Canonical Text Services (CTS) Protocol defines a URN-based identifier struct
 
 The CTS URN specification was intentionally designed to be technology independent, but in a world where the web is currently the protocol of choice for resolution of data identifiers, lack of a standard approach to automatically linking CTS URNs with an instance or instances of the CTS APIs which can actually resolve them is a critical gap. 
 
-Individual publishers of CTS URNs have taken different approaches to this problem, from a simple use of a domain name and rewrite rules on the supporting http server to redirect requests to an API endpoint (<sup>http://sites.tufts.edu/perseusupdates/beta-features/perseus-stable-uris/</sup>) to custom built resolution services (<sup>/http://doi.org/10.5334/dsj-2016-013</sup>).  However all of these solutions require that the consumer of a CTS URN know which publisher makes the identified text available, and where and how that particular publisher resolves those URNs.  A standard approach which allows for distributed publishing but centralized management of the resolution is required.
+Individual publishers of CTS URNs have taken different approaches to this problem, from a simple use of a domain name and rewrite rules on the supporting http server to redirect requests to an API endpoint (<sup>http://sites.tufts.edu/perseusupdates/beta-features/perseus-stable-uris/</sup>) to custom built resolution services (<sup>http://doi.org/10.5334/dsj-2016-013</sup>).  However all of these solutions require that the consumer of a CTS URN know which publisher makes the identified text available, and where and how that particular publisher resolves those URNs.  A standard approach which allows for distributed publishing but centralized management of the resolution is required.
 
-Any solution to this problem must address both technical and the governance challenges. An established and reliable infrastructure is needed, one that not only provides some viable technical solutions but also enables a variety of 
+Any solution to this problem must address both the technical and the governance challenges. An established and reliable infrastructure is needed, one that not only provides some viable technical solutions but also enables a variety of 
 governance structures to exist.
 
 The Handle System is one solution that provides answers on both fronts.  The following characteristics of the Handle system (<sup>https://www.ietf.org/rfc/rfc3650.txt</sup>) are of particular importance:
@@ -230,7 +230,7 @@ US 1 As a user I want a CTS Work URN (with a passage reference) to resolve to a 
 
 US 2 As a user I want a CTS Work URN (without a passage reference) to resolve to a list of URLs serving editions and translations of this work. 
 
-US 3 As a user I want a CTS Edition/Translation URN without a passage reference to resolve to a list of URLs at which I can retrieve passages from this edition/translation. user story
+US 3 As a user I want a CTS Edition/Translation URN without a passage reference to resolve to a list of URLs at which I can retrieve passages from this edition/translation.
 
 US 4 As a user I want a CTS Edition/Translation URN with a passage reference to resolve to a list of URLs at which I can retrieve that passage. 
 
@@ -254,7 +254,7 @@ US 12 As a publisher I want to specify whether the URL a CTS URN I publish is a 
 
 ## Scenario 1: Minimal Functionality, Minimal Handle Governance (CTS URNs direct to Handles)
 
-In this scenario a Proxy Server is responsible for mapping CTS URNs to Handles and returning the Handles directly to the client.  Clients submit the URN to the proxy service and get back one or more Handles. Minimal to no support would provided for determining how to offer clients of the Proxy a choice between multiple Handle options.  Publishers of texts identified by CTS URN can run their own Handle Server to assign Handles or they can request Handles from a 3rd party provider.  They submit URNRegex-to-Handle mappings to the provider of the Proxy Server in order to enable their URNs to be resolved. It’s up to the publisher to decide what URL(s) to put in the Handle record for a CTS Text - these could be direct URLs to the text at the CTS API endpoint, or to a Landing Page,  or a download of the xml file.
+In this scenario a Proxy Server is responsible for mapping CTS URNs to Handles and returning the Handles directly to the client.  Clients submit the URN to the proxy service and get back one or more Handles. Minimal to no support would be provided for determining how to offer clients of the Proxy a choice between multiple Handle options.  Publishers of texts identified by CTS URN can run their own Handle Server to assign Handles or they can request Handles from a 3rd party provider.  They submit URNRegex-to-Handle mappings to the provider of the Proxy Server in order to enable their URNs to be resolved. It’s up to the publisher to decide what URL(s) to put in the Handle record for a CTS Text - these could be direct URLs to the text at the CTS API endpoint, or to a Landing Page,  or a download of the xml file.
 
 The owner of the Proxy Server is committing to make the service available. CTS Publishers who submit Handle mappings to the Proxy Server provider are committing to keep their texts available at the Handle locations. CTS Text Publishers, if running a Handle Server, are committing to keep it available for any Handles they issue.  The Proxy Service could be provided by something as simple as w3id.org in this scenario.
   
@@ -293,7 +293,7 @@ The Proxy Server could be responsible for translating CTS API URLs in the Handle
 
 It should be possible to integrate the management of Handle records for the [Perseus Digital Library's](http://www.perseus.tufts.edu) CTS URNs into its [CapiTainS-based](http://capitains.org/) text publishing process. Perseus would act in the role of a Participating CTS Text Publisher (PCTP). 
 
-Assuming that the CHSP provides an automated means to for PCTPs to create and update handles (either via the Handle Service HTTP API or a customized solution), Perseus could add steps to its text deployment and urn assignment processes to issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. 
+Assuming that the CHSP provides an automated means for PCTPs to create and update handles (either via the Handle Service HTTP API or a customized solution), Perseus could add steps to its text deployment and urn assignment processes to issue Create requests for new URN Handles and Update requests for previously registered URN which have been replaced by newer versions. 
 
 Perseus texts are currently automatically deployed on the [Perseids instance of the CapiTainS CTS API](http://cts.perseids.org/api/cts/?request=GetCapabilities).  The deployment process is managed by [a cron-invoked script](https://github.com/Capitains/puppet-capitains/blob/master/templates/update_capitains_repos.rb.erb) which pulls release bundles (built by the [HookTest Continuous Integration system](https://github.com/capitains/hook)) from GitHub and publishes them to the CTS API endpoint.  This script could be modified to automatically update the Centralized Handle Service Provider (CHSP) to ensure that there is a single handle per work and edition/translation.
 

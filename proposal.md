@@ -327,3 +327,52 @@ __Step 7__: Create a new Handle for the new URN with the appropriate template in
 
 An additional process would likely need to be instituted to capture URN replacements and redirections which occur via use of the `redirect_to` property of the URN Cite Record. This would probably be simplest to implement as a separate process which runs at regular intervals, iterating through registered Handle records and checking them against the Cite Collection records for the URN, updating the Handle template as need for any URNs which have been since redirected.
 
+# Appendix 6 - RPID AWS Test Bed Example
+
+An initial example handle has been setup to validate the proof-of-concent in the AWS instance of the RPID testbed.
+
+We have just one Handle prefix registered for this test bed environment at the moment, 20.500.12042, and in order to demonstrate various possibilities under this one prefix, the handle we have created deviates from the specifics of this proposal, which recommends that we create one handle per CTS version URN under a handle prefix mapped to the namespace of the URN.   For the purposes of our proof-of-concept, we created a single sample template to handle all requests for CTS texts, using rules in the HS_NAMESPACE value to differentiate between CTS namespace: 20.500.12042/CTSTEST .
+
+Our sample template includes 2 CTS namespaces, greekLit and copticLit.  The greekLit namespace is owned by The Perseus Project, a PCTP which provides a CTS API Endpoint.  The copticLit namespace is owned by the Coptic SCRIPTORIUM Project, a PCTP which identifies its texts by CTS URN but does not provide a CTS Endpoint.
+
+The example template also maps all works under a namespace to a single endpoint, which would not be the case if you have multiple PCTP providing the same CTS URN identified work.  
+
+The template does take into account the need to map requests for specific passages of a work to a different CTS API request (i.e. the GetPassage request) than requests for a URN without a passage identifier (i.e. the GetValidReff request).
+
+The contents of the 20.500.12042/CTSTEST Handle are as follows:
+```
+{
+  "values": {
+    "URL": {
+      "name": "",
+      "value": "http:\/\/www.example.com"
+    },
+    "HS_NAMESPACE": {
+      "name": "",
+      "value": "<namespace>\n  <template delimiter=\"|\">\n    <foreach>\n      <if value=\"type\" test=\"equals\" expression=\"URL\">\n        <if value=\"extension\" test=\"matches\"\nexpression=\"(urn:cts:greekLit:((.*?):.+))\" parameter=\"x\">\n         <value data=\n\"http:\/\/cts.perseids.org\/api\/cts\/?request=GetPassage&urn=${x[1]}\"\/>\n        <\/if>\n        <else>\n          <if value=\"extension\" test=\"matches\"\nexpression=\"^(urn:cts:greekLit:(.*?)\\.(.*?)\\.(.*+))$\" parameter=\"x\">\n           <value data=\n\"http:\/\/cts.perseids.org\/api\/cts\/?request=GetValidReff&urn=${x[1]}\"\/>\n          <\/if>\n       <\/else> \n        <if value=\"extension\" test=\"matches\"\nexpression=\"^(urn:cts:copticLit:.*)$\" parameter=\"x\">\n           <value data=\n\"http:\/\/data.copticscriptorium.org\/${x[1]}\"\/>\n          <\/if>\n      <\/if>\n     <else>\n       <value \/>\n     <\/else>\n    <\/foreach>\n  <\/template>\n<\/namespace>"
+    }
+  }
+}
+```
+
+The following 3 tests can be used with this handle:
+
+(1) https://hdl.handle.net/20.500.12042/ctstest|urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+
+(2) https://hdl.handle.net/20.500.12042/ctstest|urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1
+
+(3) https://hdl.handle.net/20.500.12042/ctstest|urn:cts:copticLit:ap.120.monbeg
+
+* (1) is to a CTS work housed at a CTS API endpoint and should resolve to a GetValidReff request to the CTS API
+* (2) is to a CTS passage for a work housed at a CTS API endpoint and should resolve to a GetPassage request to the CTS API
+* (3) is to a CTS work which is not served by a CTS API endpoint - it's from the copticLit namespace and resolves to their publication environment for that URN
+
+Another piece missing in the test right now is the hdl.handle.net proxy mapping of the cts urn namespaces to handle system prefixes.  When that is in place, the actual hdl.handle.net request URLs would instead just look like:
+
+(1) https://hdl.handle.net/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2
+
+(2) https://hdl.handle.net/urn:cts:greekLit:tlg0012.tlg002.perseus-grc2:1.1
+
+(3) https://hdl.handle.net/urn:cts:copticLit:ap.120.monbeg
+
+And the hdl.handle.net proxy would be responsible for mapping these to actual handles with the right prefix and syntax.

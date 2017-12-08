@@ -115,7 +115,7 @@ The following proposes an approach to using the using the Handle System as a cen
 
 4. Template handle maps the request to the URL for the GetPassage request at the provider's CTS API endpoint:
 
-    https://cts.perseids.org/api/cts?request-GetPassage&urn=urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1
+    https://cts.perseids.org/api/cts/?request=GetPassage&urn=urn:cts:greeklit:tlg0012.tlg002.perseus-grc2:2.1
     
 5. CHSP returns the URL to the HDL
 

@@ -224,6 +224,10 @@ curl -H Accept: application/vnd.cite-architecture.cts+xml cts.handle.net/urn:cts
 
 In this case the CHSP might configure the template handle logic to examine the urls of the PCTP endpoints and exclude any that didn't adhere to the CTS API protocol.
 
+# Acknowledgements
+
+This project funded by the National Science Foundation under award #1659310. 
+
 # Appendix 1 - User Stories
 
 US 1 As a user I want a CTS Work URN (with a passage reference) to resolve to a list of URLs serving editions and translations of this work. 
